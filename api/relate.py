@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import openai
 import os
+from openai import OpenAI
 
 class RelateRequest(BaseModel):
     text: str
