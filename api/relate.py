@@ -23,9 +23,17 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_POST(self):
-        if self.path != '/api/relate':
+        print(f"Debug: Received request at path {self.path}")  # Add debugging
+        if not self.path.endswith('/api/relate'):  # Change the path check
             self.send_response(404)
+            self.send_header('Content-type', 'application/json')
+            for key, value in cors_headers().items():
+                self.send_header(key, value)
             self.end_headers()
+            error_response = json.dumps({
+                'error': f'Invalid path: {self.path}'
+            })
+            self.wfile.write(error_response.encode('utf-8'))
             return
 
         content_length = int(self.headers['Content-Length'])
