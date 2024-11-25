@@ -67,6 +67,7 @@ class handler(BaseHTTPRequestHandler):
             for key, value in cors_headers().items():
                 self.send_header(key, value)
             self.end_headers()
-            self.wfile.write(json.dumps({
+            error_response = json.dumps({
                 'error': str(e)
-            }).encode('utf-8'))
+            })
+            self.wfile.write(error_response.encode('utf-8'))
