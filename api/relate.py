@@ -24,7 +24,7 @@ class handler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         print(f"Debug: Received request at path {self.path}")
-        if self.path != '/api/relate':  # Simpler path check
+        if not any(self.path == path for path in ['/api/relate', 'api/relate']):
             self.send_response(404)
             self.send_header('Content-type', 'application/json')
             for key, value in cors_headers().items():
