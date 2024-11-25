@@ -26,10 +26,10 @@ function App() {
       }
       
       const data = await response.json();
-      setDisplayedText(data.response);
+      setDisplayedText(data.message);
       
       // Animate text word by word
-      const words = data.response.split(' ');
+      const words = data.message.split(' ');
       setAnimatedText('');
       
       for (let i = 0; i < words.length; i++) {
