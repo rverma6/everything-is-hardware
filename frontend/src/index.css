@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities; 
+@tailwind utilities;
+
+/* Custom styles for input box */
+.input-box {
+  @apply w-full p-3 border-2 border-gray-300 rounded-lg text-lg;
+}
+
+@media (max-width: 600px) {
+  .input-box {
+    @apply text-base p-2;
+  }
+} 
