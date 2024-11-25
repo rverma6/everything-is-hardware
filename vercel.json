@@ -1,32 +1,33 @@
 {
-  "version": 2,
-  "framework": "vite",
-  "builds": [
-    {
-      "src": "api/relate.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist",
-        "buildCommand": "cd frontend && npm install && npm run build"
+    "version": 2,
+    "framework": "vite",
+    "builds": [
+      {
+        "src": "api/relate.py",
+        "use": "@vercel/python"
+      },
+      {
+        "src": "frontend/package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "frontend/dist",
+          "buildCommand": "cd frontend && npm install && npm run build"
+        }
       }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/relate",
-      "dest": "/api/relate.py"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/dist/assets/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/dist/$1"
-    }
-  ]
-}
+    ],
+    "routes": [
+      {
+        "src": "/relate",
+        "dest": "/api/relate.py"
+      },
+      {
+        "src": "/assets/(.*)",
+        "dest": "/assets/$1"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/index.html"
+      }
+    ]
+  }
+  
