@@ -13,7 +13,7 @@ export default defineConfig({
     open: true
   },
   build: {
-    outDir: 'dist',
+    outDir: 'dist', // Outputs to 'frontend/dist'
     assetsDir: 'assets'
   }
-}); 
+});

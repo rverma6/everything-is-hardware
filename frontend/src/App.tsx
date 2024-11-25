@@ -12,7 +12,7 @@ function App() {
   const handleSubmit = async (text: string) => {
     setIsAnimating(true);
     try {
-      const response = await fetch('/relate', {
+      const response = await fetch('/api/relate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
