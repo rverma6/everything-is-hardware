@@ -19,17 +19,6 @@
       "src": "/api/relate",
       "methods": ["POST", "OPTIONS"],
       "dest": "/api/relate.py"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/frontend/dist/assets/$1"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/frontend/dist/$1"
     }
   ]
 }
