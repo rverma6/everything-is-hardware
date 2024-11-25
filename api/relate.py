@@ -1,9 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import openai
+import os
 
 class RelateRequest(BaseModel):
-    # Add your expected request fields here
     text: str
 
 app = FastAPI()
@@ -27,7 +28,13 @@ async def root():
 @app.post("/api/relate")
 async def relate(request: RelateRequest):
     try:
-        # Your relation logic here
-        return {"message": request.text}
+        openai.api_key = os.getenv("OPENAI_API_KEY")
+        response = openai.Completion.create(
+            engine="text-davinci-003",
+            prompt=f"Relate the following text to hardware: {request.text}",
+            max_tokens=150
+        )
+        message = response.choices[0].text.strip()
+        return {"message": message}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
