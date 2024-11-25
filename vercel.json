@@ -1,6 +1,5 @@
 {
     "version": 2,
-    "framework": "vite",
     "builds": [
       {
         "src": "api/relate.py",
@@ -21,11 +20,10 @@
         "dest": "/api/relate.py"
       },
       {
-        "src": "/assets/(.*)",
-        "dest": "/assets/$1"
+        "handle": "filesystem"
       },
       {
-        "src": "/(.*)",
+        "src": "/.*",
         "dest": "/index.html"
       }
     ]
