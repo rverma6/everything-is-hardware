@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import openai
+from openai import OpenAI
 import os
 
 class RelateRequest(BaseModel):
@@ -17,6 +17,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 @app.get("/api/health")
 def health_check():
     return {"status": "ok"}
@@ -28,17 +30,16 @@ async def root():
 @app.post("/api/relate")
 async def relate(request: RelateRequest):
     try:
-        openai.api_key = os.getenv("OPENAI_API_KEY")
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant that relates everything to hardware."},
-                {"role": "user", "content": f"{request.text}"}
+                {"role": "user", "content": request.text}
             ],
             max_tokens=150,
             temperature=1.0
         )
-        message = response["choices"][0]["message"]["content"].strip()
+        message = response.choices[0].message.content.strip()
         return {"message": message}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

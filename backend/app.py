@@ -2,13 +2,13 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
-from openai import OpenAI
+import openai  # Updated import
 
 # Load environment variables
 load_dotenv()
 
 # Configure OpenAI
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+openai.api_key = os.getenv('OPENAI_API_KEY')  # Set API key directly
 
 app = Flask(__name__)
 CORS(app)
@@ -19,7 +19,7 @@ def relate():
     topic = data.get('topic', '')
     
     try:
-        response = client.chat.completions.create(
+        response = openai.ChatCompletion.create(  # Updated API call
             model="gpt-3.5-turbo",
             messages=[
                 {
@@ -38,6 +38,10 @@ def relate():
         return jsonify({
             'response': response.choices[0].message.content
         })
+    except openai.error.OpenAIError as e:
+        return jsonify({
+            'response': f"OpenAI API error: {str(e)}"
+        }), 502  # Use appropriate HTTP status codes
     except Exception as e:
         return jsonify({
             'response': f"Error generating response: {str(e)}"
