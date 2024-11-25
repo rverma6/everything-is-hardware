@@ -17,6 +17,7 @@
   "routes": [
     {
       "src": "/api/relate",
+      "methods": ["POST", "OPTIONS"],
       "dest": "/api/relate.py"
     },
     {
