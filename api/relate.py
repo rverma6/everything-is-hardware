@@ -32,13 +32,13 @@ async def relate(request: RelateRequest):
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": f"Relate the following text to hardware: {request.text}"}
+                {"role": "system", "content": "You are a helpful assistant that relates everything to hardware."},
+                {"role": "user", "content": f"{request.text}"}
             ],
             max_tokens=150,
             temperature=1.0
         )
-        message = response.choices[0].message["content"].strip()
+        message = response["choices"][0]["message"]["content"].strip()
         return {"message": message}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
