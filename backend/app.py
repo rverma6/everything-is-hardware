@@ -28,7 +28,7 @@ def relate():
                 },
                 {
                     "role": "user",
-                    "content": f"WAIT WAIT WAIT - did you say {topic}?! *breathing intensifies* Let me tell you how this is LITERALLY JUST LIKE computer hardware!!!"
+                    "content": f"WAIT WAIT WAIT - did you say {topic}?! *breathing intensifies* Let me tell you how this is LITERALLY JUST LIKE hardware!!!"
                 }
             ],
             max_tokens=100,
