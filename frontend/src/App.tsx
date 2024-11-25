@@ -13,6 +13,13 @@ function App() {
     setIsAnimating(true);
     try {
       const API_URL = import.meta.env.VITE_API_URL;
+      
+      if (!API_URL) {
+        throw new Error('API_URL is not defined');
+      }
+
+      console.log('API_URL:', API_URL); // Debugging: Check the API URL
+
       const response = await fetch(`${API_URL}/api/relate`, {
         method: 'POST',
         headers: {
@@ -22,10 +29,17 @@ function App() {
       });
       
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(`HTTP error! status: ${response.status}, detail: ${errorData.detail}`);
       }
       
       const data = await response.json();
+      console.log('Received data:', data); // Debugging: Check the response data
+      
+      if (!data.message) {
+        throw new Error('No message in response');
+      }
+
       setDisplayedText(data.message);
       
       // Animate text word by word
@@ -36,7 +50,7 @@ function App() {
         await new Promise(resolve => setTimeout(resolve, 150));
         setAnimatedText(prev => prev + (i === 0 ? '' : ' ') + words[i]);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error:', error);
       setDisplayedText('Oops! My hardware seems to be malfunctioning. Have you tried turning it off and on again? 🔧');
     } finally {
