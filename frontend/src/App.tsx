@@ -12,12 +12,13 @@ function App() {
   const handleSubmit = async (text: string) => {
     setIsAnimating(true);
     try {
-      const response = await fetch('/api/relate', {
+      const API_URL = (import.meta as any).env.VITE_API_URL || '';
+      const response = await fetch(`${API_URL}/api/relate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ topic: text }),
+        body: JSON.stringify({ text: text }),
       });
       
       if (!response.ok) {

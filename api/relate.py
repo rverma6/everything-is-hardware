@@ -20,6 +20,10 @@ app.add_middleware(
 def health_check():
     return {"status": "ok"}
 
+@app.get("/")
+async def root():
+    return {"message": "API is running"}
+
 @app.post("/api/relate")
 async def relate(request: RelateRequest):
     try:
