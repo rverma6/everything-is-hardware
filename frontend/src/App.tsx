@@ -12,7 +12,7 @@ function App() {
   const handleSubmit = async (text: string) => {
     setIsAnimating(true);
     try {
-      const API_URL = (import.meta as any).env.VITE_API_URL || '';
+      const API_URL = import.meta.env.VITE_API_URL;
       const response = await fetch(`${API_URL}/api/relate`, {
         method: 'POST',
         headers: {
