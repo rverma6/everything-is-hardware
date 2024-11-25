@@ -3,3 +3,9 @@
 
 # Python virtual environment
 backend/venv/
+
+.vercel
+
+dist
+
+node_modules
