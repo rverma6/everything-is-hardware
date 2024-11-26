@@ -61,9 +61,12 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 py-12 font-quicksand">
       <div className="max-w-6xl mx-auto px-6">
-        <h1 className="text-6xl font-bold text-center text-purple-300 mb-12 animate-bounce-slow hover:scale-105 transition-transform duration-300">
+        <h1 className="text-6xl font-bold text-center text-purple-300 mb-4 animate-bounce-slow hover:scale-105 transition-transform duration-300">
           Everything is Hardware!! ⚙️
         </h1>
+        <p className="text-center text-purple-300 italic text-lg font-quicksand mb-8 block md:hidden">
+          Ask me anything in the box below, and I'll explain how it's about hardware 🙄
+        </p>
         <div className="bg-gray-800 rounded-3xl shadow-xl p-8 border border-purple-500 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300">
           <InputForm 
             onSubmit={handleSubmit} 

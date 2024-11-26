@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface InputFormProps {
   onSubmit: (topic: string) => void;
@@ -13,21 +13,32 @@ const InputForm: React.FC<InputFormProps> = ({ onSubmit, value, onChange }) => {
     onSubmit(value);
   };
 
+  useEffect(() => {
+    const inputElement = document.querySelector('textarea');
+    if (window.innerWidth <= 600 && inputElement) {
+      inputElement.setAttribute('placeholder', 'Enter a topic...');
+    }
+  }, []);
+
   return (
     <form onSubmit={handleSubmit} className="my-6">
-      <div className="flex gap-4 items-center">
+      <div className="flex flex-col sm:flex-row gap-4 items-center">
         <div className="flex-1 relative group">
-          <input
-            type="text"
+          <textarea
             value={value}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={(e) => {
+              onChange(e.target.value);
+              e.target.style.height = 'auto';
+              e.target.style.height = `${e.target.scrollHeight}px`;
+            }}
             placeholder="Oh, you want to learn about REAL hardware? Go ahead, ask... 🙄"
             className="w-full px-6 py-4 text-lg border-2 border-purple-500/30 rounded-2xl 
                      focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent
                      bg-gradient-to-r from-gray-900 to-gray-950
                      text-purple-100 placeholder-purple-400
                      transition-all duration-300 font-quicksand
-                     hover:shadow-lg hover:shadow-purple-500/20"
+                     hover:shadow-lg hover:shadow-purple-500/20 resize-none"
+            rows={1}
           />
           <div className="absolute right-4 top-1/2 -translate-y-1/2 text-2xl animate-float hidden group-hover:block">
             ⚙️
